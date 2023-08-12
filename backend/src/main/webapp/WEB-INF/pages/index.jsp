@@ -4,5 +4,6 @@
     Author     : dptuy
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1 class="text-center">Admin Page</h1>
+<h5 class="text-center">Trang quản trị viên</h5>
