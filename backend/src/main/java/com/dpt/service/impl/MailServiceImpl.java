@@ -6,9 +6,6 @@ package com.dpt.service.impl;
 
 import com.dpt.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,31 +15,20 @@ import org.springframework.stereotype.Service;
  * @author dptuy
  */
 @Service
-@PropertySource("classpath:mail.properties")
 public class MailServiceImpl implements MailService {
 
     @Autowired
     private JavaMailSender mailSender;
 
     @Autowired
-    private Environment env;
+    private SimpleMailMessage mailMessage;
 
     @Override
-    public boolean sendMail(String to, String email) {
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(env.getProperty("mail.username"));
-            message.setTo(to);
-            message.setSubject(env.getProperty("mail.subject"));
-            String text = String.format(env.getProperty("mail.message"), email);
-            message.setText(text);
+    public void sendMail(String to, String email) {
+        mailMessage.setTo(to);
+        String text = String.format(mailMessage.getText(), email);
+        mailMessage.setText(text);
 
-            mailSender.send(message);
-            return true;
-        } catch (MailException ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        mailSender.send(mailMessage);
     }
-
 }

@@ -10,5 +10,5 @@ package com.dpt.service;
  */
 public interface MailService {
 
-    boolean sendMail(String to, String email);
+    void sendMail(String to, String email);
 }
