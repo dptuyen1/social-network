@@ -6,14 +6,17 @@ package com.dpt.service;
 
 import com.dpt.pojo.User;
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
  * @author dptuy
  */
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<User> getUsers();
 
     boolean addNewUser(User user);
+
+    User getUserByUsername(String username);
 }

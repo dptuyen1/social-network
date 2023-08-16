@@ -7,9 +7,11 @@ package com.dpt.controllers;
 import com.dpt.pojo.User;
 import com.dpt.service.MailService;
 import com.dpt.service.UserService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +36,13 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-    public String addUser(@ModelAttribute(value = "user") User user,
-            Model model) {
-        if (this.userService.addNewUser(user) == true) {
-            if (this.mailService.sendMail(user.getEmail(), user.getUsername()) == true) {
-                System.out.print("Gửi mail thành công!");
+    public String addUser(@ModelAttribute(value = "user") @Valid User user,
+            BindingResult result, Model model) {
+        if (!result.hasErrors()) {
+            if (this.userService.addNewUser(user)) {
+                this.mailService.sendMail(user.getEmail(), user.getUsername());
+                return "redirect:/login";
             }
-            return "redirect:/login";
         } else {
             model.addAttribute("msg", "Đăng ký tài khoản thất bại!");
         }

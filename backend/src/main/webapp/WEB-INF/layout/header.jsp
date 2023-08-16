@@ -18,8 +18,18 @@
             </form>
 
             <div class="text-end">
-                <a href="<c:url value="/login" />" class="btn btn-info me-2">Đăng nhập</a>
-                <a href="<c:url value="/signup" />" class="btn btn-warning">Đăng ký</a>
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <a href="<c:url value="/user-details" />" class="btn btn-success me-2">
+                            ${pageContext.request.userPrincipal.name}
+                        </a>
+                        <a href="<c:url value="/logout" />" class="btn btn-danger">Đăng xuất</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="<c:url value="/login" />" class="btn btn-info me-2">Đăng nhập</a>
+                        <a href="<c:url value="/signup" />" class="btn btn-warning">Đăng ký</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
