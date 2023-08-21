@@ -4,6 +4,8 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -41,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Post.findByCreatedDate", query = "SELECT p FROM Post p WHERE p.createdDate = :createdDate"),
     @NamedQuery(name = "Post.findByUpdatedDate", query = "SELECT p FROM Post p WHERE p.updatedDate = :updatedDate"),
     @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status")})
+
+@JsonIgnoreProperties({"userId", "postDetailsSet", "commentSet"})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +62,7 @@ public class Post implements Serializable {
     @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createdDate;
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)

@@ -4,6 +4,7 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -53,6 +54,7 @@ public class Reaction implements Serializable {
     @Column(name = "icon")
     private String icon;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reactionId")
+    @JsonIgnore
     private Set<PostDetails> postDetailsSet;
 
     public Reaction() {
