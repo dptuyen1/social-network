@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService {
         return this.repository.getUserByUsername(username);
     }
 
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.repository.authUser(username, password);
+    }
+
 }
