@@ -4,6 +4,7 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -48,6 +49,8 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByCover", query = "SELECT u FROM User u WHERE u.cover = :cover"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
+
+@JsonIgnoreProperties({"file", "postSet", "postDetailsSet", "commentSet", "roleId"})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
