@@ -23,8 +23,13 @@
         </c:when>
     </c:choose>
 
-    <form:form cssClass="w-50" modelAttribute="user" method="post" action="" enctype="multipart/form-data">
+    <form:form cssClass="w-50" modelAttribute="user" method="POST" action="" enctype="multipart/form-data">
         <form:hidden path="avatar"/>
+        <form:hidden path="password"/>
+        <form:hidden path="createdDate"/>
+        <form:hidden path="active"/>
+        <form:hidden path="roleId"/>
+
         <div class="mb-3 mt-3">
             <form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>
             <form:input path="lastName" type="text" class="form-control" name="ln" placeholder="Họ"/>

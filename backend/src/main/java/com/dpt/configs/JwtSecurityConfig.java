@@ -70,6 +70,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").access("hasAuthority('admin') or hasAuthority('teacher') or hasAuthority('student')")
                 .antMatchers(HttpMethod.POST, "/api/**").access("hasAuthority('admin') or hasAuthority('teacher') or hasAuthority('student')")
+                .antMatchers(HttpMethod.PUT, "/api/**").access("hasAuthority('admin') or hasAuthority('teacher') or hasAuthority('student')")
                 .antMatchers(HttpMethod.DELETE, "/api/**").access("hasAuthority('admin') or hasAuthority('teacher') or hasAuthority('student')").and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());

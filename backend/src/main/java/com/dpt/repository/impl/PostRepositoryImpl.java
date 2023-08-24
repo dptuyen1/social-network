@@ -5,10 +5,8 @@
 package com.dpt.repository.impl;
 
 import com.dpt.pojo.Post;
-import com.dpt.pojo.User;
 import com.dpt.repository.PostRepository;
 import com.dpt.service.UserService;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
@@ -41,13 +39,32 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public boolean addPosts(Post post) {
+    public Post getPostById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Post.class, id);
+    }
+
+    @Override
+    public boolean addOrUpdatePost(Post post) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            List<User> users = this.userService.getUsers();
-            post.setCreatedDate(new Date());
-            post.setStatus(true);
-            session.save(post);
+            if (post.getId() == null) {
+                session.save(post);
+            } else {
+                session.update(post);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deletePost(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.delete(this.getPostById(id));
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
