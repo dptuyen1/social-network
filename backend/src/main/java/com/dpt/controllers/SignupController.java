@@ -36,8 +36,8 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-    public String addUser(@ModelAttribute(value = "user") @Valid User user,
-            BindingResult result, Model model) {
+    public String addUser(Model model, @ModelAttribute(value = "user") @Valid User user,
+            BindingResult result) {
         if (!result.hasErrors()) {
             if (this.userService.addNewUser(user)) {
                 this.mailService.sendMail(user.getEmail(), user.getUsername());
@@ -45,6 +45,7 @@ public class SignupController {
             }
         } else {
             model.addAttribute("msg", "Đăng ký tài khoản thất bại!");
+            System.err.println(result.toString());
         }
         return "signup";
     }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class UserApiController {
 
     @Autowired
@@ -33,7 +34,6 @@ public class UserApiController {
     private UserService userService;
 
     @PostMapping("/login")
-    @CrossOrigin
     public ResponseEntity<String> login(@RequestBody User user) {
         if (this.userService.authUser(user.getUsername(), user.getPassword()) == true) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
@@ -45,13 +45,11 @@ public class UserApiController {
     }
 
     @GetMapping("/test")
-    @CrossOrigin
     public ResponseEntity<String> test(Principal pricipal) {
         return new ResponseEntity<>("SUCCESSFUL", HttpStatus.OK);
     }
 
     @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<User> details(Principal principal) {
         User user = this.userService.getUserByUsername(principal.getName());
         return new ResponseEntity<>(user, HttpStatus.OK);

@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -51,6 +52,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
 
 @JsonIgnoreProperties({"file", "postSet", "postDetailsSet", "commentSet", "roleId"})
+//@JsonIgnoreProperties({"file", "postDetailsSet", "commentSet"})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -96,6 +98,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "created_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)

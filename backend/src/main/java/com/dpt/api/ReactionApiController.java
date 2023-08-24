@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class ReactionApiController {
 
     @Autowired
     private ReactionService reactionService;
 
     @GetMapping("/reactions")
-    @CrossOrigin
     public ResponseEntity<List<Reaction>> list() {
         return new ResponseEntity<>(this.reactionService.getReactions(), HttpStatus.OK);
     }
