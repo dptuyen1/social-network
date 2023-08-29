@@ -17,7 +17,7 @@ public interface PostRepository {
 
     Post getPostById(int id);
 
-    boolean addOrUpdatePost(Post post);
+    boolean addOrUpdate(Post post);
 
-    boolean deletePost(int id);
+    boolean delete(Post post);
 }

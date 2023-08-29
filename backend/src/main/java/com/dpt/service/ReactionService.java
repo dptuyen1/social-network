@@ -14,4 +14,12 @@ import java.util.List;
 public interface ReactionService {
 
     List<Reaction> getReactions();
+
+    Reaction getReactionById(int id);
+
+    boolean add(Reaction reaction);
+
+    boolean update(Reaction reaction);
+
+    boolean delete(Reaction reaction);
 }

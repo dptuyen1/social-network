@@ -19,9 +19,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -44,24 +44,22 @@ public class Comment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createdDate;
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date updatedDate;
     @JoinColumn(name = "post_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Post postId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User userId;
 
     public Comment() {
@@ -69,12 +67,6 @@ public class Comment implements Serializable {
 
     public Comment(Integer id) {
         this.id = id;
-    }
-
-    public Comment(Integer id, String content, Date createdDate) {
-        this.id = id;
-        this.content = content;
-        this.createdDate = createdDate;
     }
 
     public Integer getId() {

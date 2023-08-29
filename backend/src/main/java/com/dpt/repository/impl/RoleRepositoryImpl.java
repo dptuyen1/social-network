@@ -8,6 +8,7 @@ import com.dpt.pojo.Role;
 import com.dpt.repository.RoleRepository;
 import java.util.List;
 import javax.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -31,6 +32,29 @@ public class RoleRepositoryImpl implements RoleRepository {
         Query query = session.createQuery("from Role");
 
         return query.getResultList();
+    }
+
+    @Override
+    public Role getRoleById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Role.class, id);
+    }
+
+    @Override
+    public boolean addOrUpdate(Role role) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            if (role.getId() == null) {
+                session.save(role);
+            } else {
+                session.update(role);
+            }
+            return true;
+
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
 }

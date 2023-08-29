@@ -15,4 +15,9 @@ public interface RoleService {
 
     List<Role> getRoles();
 
+    Role getRoleById(int id);
+
+    boolean add(Role role);
+
+    boolean update(Role role);
 }

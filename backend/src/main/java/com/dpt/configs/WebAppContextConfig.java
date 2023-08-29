@@ -4,6 +4,7 @@
  */
 package com.dpt.configs;
 
+import com.dpt.formatters.RoleFormatter;
 import com.dpt.formatters.UserFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new UserFormatter());
+        registry.addFormatter(new RoleFormatter());
     }
 
     @Bean

@@ -9,6 +9,7 @@ import com.dpt.pojo.User;
 import com.dpt.repository.PostRepository;
 import com.dpt.service.PostService;
 import com.dpt.service.UserService;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,23 +39,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean addPost(Post post, User user) {
+    public boolean add(Post post, Principal principal) {
         post.setCreatedDate(new Date());
         post.setStatus(true);
+        User user = this.userService.getUserByUsername(principal.getName());
         post.setUserId(user);
-        return this.repository.addOrUpdatePost(post);
+        post.setTotalComment(0);
+        post.setTotalReaction(0);
+
+        return this.repository.addOrUpdate(post);
     }
 
     @Override
-    public boolean updatePost(Post post) {
-        post.setCreatedDate(post.getCreatedDate());
+    public boolean update(Post post) {
         post.setUpdatedDate(new Date());
 
-        return this.repository.addOrUpdatePost(post);
+        return this.repository.addOrUpdate(post);
     }
 
     @Override
-    public boolean deletePost(int id) {
-        return this.repository.deletePost(id);
+    public boolean delete(int id) {
+        Post post = this.repository.getPostById(id);
+        return this.repository.delete(post);
     }
 }

@@ -39,10 +39,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean addNewUser(User user) {
+    public boolean addOrUpdate(User user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            session.save(user);
+            if (user.getId() == null) {
+                session.save(user);
+            } else {
+                session.update(user);
+            }
             return true;
         } catch (HibernateException exception) {
             exception.printStackTrace();

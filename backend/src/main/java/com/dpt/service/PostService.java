@@ -5,7 +5,7 @@
 package com.dpt.service;
 
 import com.dpt.pojo.Post;
-import com.dpt.pojo.User;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -18,9 +18,9 @@ public interface PostService {
 
     Post getPostById(int id);
 
-    boolean addPost(Post post, User user);
+    boolean add(Post post, Principal principal);
 
-    boolean updatePost(Post post);
+    boolean update(Post post);
 
-    boolean deletePost(int id);
+    boolean delete(int id);
 }

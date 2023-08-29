@@ -16,20 +16,15 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/index.jsp" />
     </definition>
-    <definition name="signup" extends="baseLayout">
-        <put-attribute name="title" value="Đăng ký" />
-        <put-attribute name="content"
-                       value="/WEB-INF/pages/signup.jsp" />
-    </definition>
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Đăng nhập" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/login.jsp" />
+                       value="/WEB-INF/pages/user/login.jsp" />
     </definition>
-    <definition name="user-details" extends="baseLayout">
-        <put-attribute name="title" value="Thông tin tài khoản" />
+    <definition name="signup" extends="baseLayout">
+        <put-attribute name="title" value="Đăng ký" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/user-details.jsp" />
+                       value="/WEB-INF/pages/user/signup.jsp" />
     </definition>
     <definition name="post" extends="baseLayout">
         <put-attribute name="title" value="Quản lý bài đăng" />
@@ -40,6 +35,46 @@
         <put-attribute name="title" value="Tùy chỉnh bài đăng" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/post/post-details.jsp" />
+    </definition>
+    <definition name="reaction" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý biểu cảm" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/reaction/reaction.jsp" />
+    </definition>
+    <definition name="reaction-details" extends="baseLayout">
+        <put-attribute name="title" value="Tùy chỉnh biểu cảm" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/reaction/reaction-details.jsp" />
+    </definition>
+    <definition name="comment" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý bình luận" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/comment/comment.jsp" />
+    </definition>
+    <definition name="comment-details" extends="baseLayout">
+        <put-attribute name="title" value="Tùy chỉnh bình luận" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/comment/comment-details.jsp" />
+    </definition>
+    <definition name="role" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý quyền" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/role/role.jsp" />
+    </definition>
+    <definition name="role-details" extends="baseLayout">
+        <put-attribute name="title" value="Tùy chỉnh quyền" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/role/role-details.jsp" />
+    </definition>
+    <definition name="user" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý tài khoản" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/user/user.jsp" />
+    </definition>
+    <definition name="user-details" extends="baseLayout">
+        <put-attribute name="title" value="Tùy chỉnh tài khoản" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/user/user-details.jsp" />
     </definition>
 </tiles-definitions>
 
