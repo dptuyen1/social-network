@@ -8,6 +8,7 @@ import com.dpt.pojo.Comment;
 import com.dpt.repository.CommentRepository;
 import java.util.List;
 import javax.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -33,4 +34,31 @@ public class CommentRepositoryImpl implements CommentRepository {
         return query.getResultList();
     }
 
+    @Override
+    public boolean addOrUpdate(Comment comment) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            if (comment.getId() == null) {
+                session.save(comment);
+            } else {
+                session.update(comment);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Comment comment) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            session.delete(comment);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

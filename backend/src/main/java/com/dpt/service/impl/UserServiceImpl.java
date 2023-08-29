@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -52,11 +53,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addNewUser(User user) {
+    public boolean add(User user) {
         List<Role> roles = this.service.getRoles();
-        user.setPassword(this.passwordEncoder.encode("ou@123"));
 
-        if (!user.getFile().isEmpty()) {
+        //Dang ky tai khoan giao vien
+        if (user.getPassword() == null) {
+            user.setPassword(this.passwordEncoder.encode("ou@123"));
+            user.setRoleId(roles.get(1));
+        } else { //Dang ky tai khoan sinh vien
+            user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+            user.setRoleId(roles.get(2));
+        }
+
+        if (user.getFile() != null && !user.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 user.setAvatar(res.get("secure_url").toString());
@@ -64,14 +73,13 @@ public class UserServiceImpl implements UserService {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            user.setAvatar("https://res.cloudinary.com/dzbcst18v/image/upload/v1691942943/iatjoqqet6tubtptpfkf.png");
+            user.setAvatar("https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png");
         }
 
         user.setCreatedDate(new Date());
         user.setActive(true);
-        user.setRoleId(roles.get(1));
 
-        return this.repository.addNewUser(user);
+        return this.repository.addOrUpdate(user);
     }
 
     @Override
@@ -90,7 +98,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-        return this.repository.getUserByUsername(username);
+        try {
+            return this.repository.getUserByUsername(username);
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -98,4 +110,9 @@ public class UserServiceImpl implements UserService {
         return this.repository.authUser(username, password);
     }
 
+    @Override
+    public boolean update(User user) {
+        //admin update
+        return this.repository.addOrUpdate(user);
+    }
 }

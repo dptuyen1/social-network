@@ -4,7 +4,6 @@
  */
 package com.dpt.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -23,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -42,10 +40,9 @@ import org.springframework.format.annotation.DateTimeFormat;
     @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content"),
     @NamedQuery(name = "Post.findByCreatedDate", query = "SELECT p FROM Post p WHERE p.createdDate = :createdDate"),
     @NamedQuery(name = "Post.findByUpdatedDate", query = "SELECT p FROM Post p WHERE p.updatedDate = :updatedDate"),
-    @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status")})
-
-//@JsonIgnoreProperties({"userId", "postDetailsSet", "commentSet"})
-@JsonIgnoreProperties({"postDetailsSet", "commentSet"})
+    @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status"),
+    @NamedQuery(name = "Post.findByTotalComment", query = "SELECT p FROM Post p WHERE p.totalComment = :totalComment"),
+    @NamedQuery(name = "Post.findByTotalReaction", query = "SELECT p FROM Post p WHERE p.totalReaction = :totalReaction")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,32 +51,29 @@ public class Post implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createdDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date updatedDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "status")
-    private boolean status;
+    private Boolean status;
+    @Column(name = "total_comment")
+    private Integer totalComment;
+    @Column(name = "total_reaction")
+    private Integer totalReaction;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
     private Set<PostDetails> postDetailsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
+    @OneToMany(mappedBy = "postId")
     private Set<Comment> commentSet;
 
     public Post() {
@@ -87,13 +81,6 @@ public class Post implements Serializable {
 
     public Post(Integer id) {
         this.id = id;
-    }
-
-    public Post(Integer id, String content, Date createdDate, boolean status) {
-        this.id = id;
-        this.content = content;
-        this.createdDate = createdDate;
-        this.status = status;
     }
 
     public Integer getId() {
@@ -128,12 +115,28 @@ public class Post implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Integer getTotalComment() {
+        return totalComment;
+    }
+
+    public void setTotalComment(Integer totalComment) {
+        this.totalComment = totalComment;
+    }
+
+    public Integer getTotalReaction() {
+        return totalReaction;
+    }
+
+    public void setTotalReaction(Integer totalReaction) {
+        this.totalReaction = totalReaction;
     }
 
     public User getUserId() {

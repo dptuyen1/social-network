@@ -14,4 +14,8 @@ import java.util.List;
 public interface CommentRepository {
 
     List<Comment> getComments();
+
+    boolean addOrUpdate(Comment comment);
+
+    boolean delete(Comment comment);
 }

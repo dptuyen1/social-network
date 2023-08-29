@@ -14,4 +14,10 @@ import java.util.List;
 public interface ReactionRepository {
 
     List<Reaction> getReactions();
+
+    Reaction getReactionById(int id);
+
+    boolean addOrUpdate(Reaction reaction);
+
+    boolean delete(Reaction reaction);
 }

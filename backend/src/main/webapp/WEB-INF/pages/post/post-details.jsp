@@ -19,7 +19,8 @@
 
             <form:form cssClass="w-50" modelAttribute="post" method="POST" action="">
                 <form:hidden path="createdDate"/>
-                <form:hidden path="updatedDate"/>
+                <form:hidden path="totalComment"/>
+                <form:hidden path="totalReaction"/>
                 <div class="mb-3 mt-3">
                     <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
                     <form:input path="content" type="text" class="form-control" placeholder="Nội dung..."/>
@@ -58,15 +59,13 @@
             </form:form>
         </c:when>
         <c:otherwise>
-            <h5 class="text-center">Thêm mới bài đăng</h5>
+            <h5 class="text-center">Thêm bài đăng mới</h5>
 
             <c:if test="${not empty msg}">
                 <h5 class="text-center text-danger">${msg}</h5>
             </c:if>
 
             <form:form cssClass="w-50" modelAttribute="post" method="POST" action="">
-                <%--<form:hidden path="createdDate"/>--%>
-                <%--<form:hidden path="updatedDate"/>--%>
                 <div class="mb-3 mt-3">
                     <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
                     <form:input path="content" type="text" class="form-control" placeholder="Nội dung..."/>
@@ -75,6 +74,4 @@
             </form:form>
         </c:otherwise>
     </c:choose>
-
-
 </div>

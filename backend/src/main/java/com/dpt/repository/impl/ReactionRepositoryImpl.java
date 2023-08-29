@@ -8,6 +8,7 @@ import com.dpt.pojo.Reaction;
 import com.dpt.repository.ReactionRepository;
 import java.util.List;
 import javax.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -31,6 +32,40 @@ public class ReactionRepositoryImpl implements ReactionRepository {
         Query query = session.createQuery("from Reaction");
 
         return query.getResultList();
+    }
+
+    @Override
+    public Reaction getReactionById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Reaction.class, id);
+    }
+
+    @Override
+    public boolean addOrUpdate(Reaction reaction) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            if (reaction.getId() == null) {
+                session.save(reaction);
+            } else {
+                session.update(reaction);
+            }
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Reaction reaction) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            session.delete(reaction);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
 }

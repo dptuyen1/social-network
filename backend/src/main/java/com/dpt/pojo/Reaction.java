@@ -4,7 +4,6 @@
  */
 package com.dpt.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -18,10 +17,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -43,31 +43,23 @@ public class Reaction implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "icon")
     private String icon;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reactionId")
-    @JsonIgnore
     private Set<PostDetails> postDetailsSet;
+
+    @Transient
+    private MultipartFile file;
 
     public Reaction() {
     }
 
     public Reaction(Integer id) {
         this.id = id;
-    }
-
-    public Reaction(Integer id, String name, String icon) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
     }
 
     public Integer getId() {
@@ -101,6 +93,20 @@ public class Reaction implements Serializable {
 
     public void setPostDetailsSet(Set<PostDetails> postDetailsSet) {
         this.postDetailsSet = postDetailsSet;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     @Override

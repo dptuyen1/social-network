@@ -30,7 +30,7 @@ public class SignupController {
     private MailService mailService;
 
     @GetMapping("/signup")
-    public String signup(Model model) {
+    public String view(Model model) {
         model.addAttribute("user", new User());
         return "signup";
     }
@@ -38,15 +38,26 @@ public class SignupController {
     @PostMapping("/signup")
     public String addUser(Model model, @ModelAttribute(value = "user") @Valid User user,
             BindingResult result) {
-        if (!result.hasErrors()) {
-            if (this.userService.addNewUser(user)) {
-                this.mailService.sendMail(user.getEmail(), user.getUsername());
-                return "redirect:/login";
-            }
+
+        String msg = "";
+
+        String username = user.getUsername();
+
+        if (this.userService.getUserByUsername(username) != null) {
+            msg = "Tên tài khoản đã có người sử dụng, vui lòng thử lại tên khác!";
         } else {
-            model.addAttribute("msg", "Đăng ký tài khoản thất bại!");
-            System.err.println(result.toString());
+            //them tai khoan cho giang vien!
+            if (!result.hasErrors()) {
+                if (this.userService.add(user)) {
+                    this.mailService.sendMail(user.getEmail(), user.getUsername());
+                    return "redirect:/login";
+                } else {
+                    msg = "Đăng ký tài khoản thất bại. Có lỗi xảy ra, vui lòng thử lại!...";
+                }
+            }
         }
+
+        model.addAttribute("msg", msg);
         return "signup";
     }
 }

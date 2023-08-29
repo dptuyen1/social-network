@@ -7,6 +7,7 @@ package com.dpt.controllers;
 import com.dpt.pojo.Post;
 import com.dpt.service.PostService;
 import com.dpt.service.UserService;
+import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,23 @@ public class PostController {
         return "post";
     }
 
-    @RequestMapping("/posts/add")
+    @GetMapping("/posts/add")
     public String view(Model model) {
         model.addAttribute("post", new Post());
-        model.addAttribute("users", this.userService.getUsers());
+        return "post-details";
+    }
+
+    @PostMapping("/posts/add")
+    public String add(Model model, @ModelAttribute(value = "post") @Valid Post post, BindingResult result, Principal principal) {
+        if (!result.hasErrors()) {
+            if (this.postService.add(post, principal)) {
+                return "redirect:/posts";
+            }
+        } else {
+            System.err.println(result);
+        }
+
+        model.addAttribute("msg", "Có lỗi xảy ra, vui lòng thử lại!");
         return "post-details";
     }
 
@@ -52,17 +66,16 @@ public class PostController {
     }
 
     @PostMapping("/post-details/{id}")
-    public String update(Model model, @ModelAttribute(value = "post") @Valid Post post, BindingResult result) throws Exception {
+    public String update(Model model, @ModelAttribute(value = "post") @Valid Post post, BindingResult result) {
         if (!result.hasErrors()) {
-            if (this.postService.updatePost(post)) {
+            if (this.postService.update(post)) {
                 return "redirect:/posts";
             }
         } else {
-            System.err.println(result.toString());
+            System.err.println(result);
         }
 
         model.addAttribute("msg", "Có lỗi xảy ra, vui lòng thử lại!");
-        model.addAttribute("users", this.userService.getUsers());
         return "post-details";
     }
 }

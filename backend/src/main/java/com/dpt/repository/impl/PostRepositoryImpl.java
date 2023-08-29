@@ -45,7 +45,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public boolean addOrUpdatePost(Post post) {
+    public boolean addOrUpdate(Post post) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (post.getId() == null) {
@@ -61,10 +61,10 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public boolean deletePost(int id) {
+    public boolean delete(Post post) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            session.delete(this.getPostById(id));
+            session.delete(post);
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();

@@ -4,7 +4,6 @@
  */
 package com.dpt.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -24,7 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -50,9 +48,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByCover", query = "SELECT u FROM User u WHERE u.cover = :cover"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
-
-@JsonIgnoreProperties({"file", "postSet", "postDetailsSet", "commentSet", "roleId"})
-//@JsonIgnoreProperties({"file", "postDetailsSet", "commentSet"})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,80 +56,58 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45, message = "{field.size}")
+    @Size(max = 45)
     @Column(name = "first_name")
     private String firstName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45, message = "{field.size}")
+    @Size(max = 45)
     @Column(name = "last_name")
     private String lastName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45, message = "{field.size}")
+    @Size(max = 45)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45, message = "{field.size}")
+    @Size(max = 45)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "avatar")
     private String avatar;
     @Size(max = 255)
     @Column(name = "cover")
     private String cover;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "created_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createdDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "active")
-    private boolean active;
+    private Boolean active;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Post> postSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<PostDetails> postDetailsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(mappedBy = "userId")
     private Set<Comment> commentSet;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Role roleId;
 
     @Transient
     private MultipartFile file;
+
+    @Transient
+    private String confirmPassword;
+
+    @Transient
+    private String formerStudentId;
 
     public User() {
     }
 
     public User(Integer id) {
         this.id = id;
-    }
-
-    public User(Integer id, String firstName, String lastName, String email, String username, String password, String avatar, Date createdDate, boolean active) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.avatar = avatar;
-        this.createdDate = createdDate;
-        this.active = active;
     }
 
     public Integer getId() {
@@ -209,11 +182,11 @@ public class User implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public boolean getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -252,12 +225,46 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 
+    /**
+     * @return the file
+     */
     public MultipartFile getFile() {
         return file;
     }
 
+    /**
+     * @param file the file to set
+     */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    /**
+     * @return the formerStudentId
+     */
+    public String getFormerStudentId() {
+        return formerStudentId;
+    }
+
+    /**
+     * @param formerStudentId the formerStudentId to set
+     */
+    public void setFormerStudentId(String formerStudentId) {
+        this.formerStudentId = formerStudentId;
     }
 
     @Override

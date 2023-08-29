@@ -26,4 +26,18 @@ public class RoleServiceImpl implements RoleService {
         return this.repository.getRoles();
     }
 
+    @Override
+    public Role getRoleById(int id) {
+        return this.repository.getRoleById(id);
+    }
+
+    @Override
+    public boolean add(Role role) {
+        return this.repository.addOrUpdate(role);
+    }
+
+    @Override
+    public boolean update(Role role) {
+        return this.repository.addOrUpdate(role);
+    }
 }
