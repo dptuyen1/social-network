@@ -1,0 +1,33 @@
+.img-xsm {
+    width: 10px;
+}
+
+.img-sm {
+    width: 50px;
+}
+
+.img-md {
+    width: 70px;
+}
+
+hr {
+    margin: 0 !important;
+}
+
+.reaction-parent {
+    position: relative;
+}
+
+.reaction-parent:hover .reaction-menu {
+    display: block;
+}
+
+.reaction-menu {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    display: none;
+    top: -100%;
+    padding: 10px;
+    border: 1px solid #999;
+}
