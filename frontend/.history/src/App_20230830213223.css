@@ -1,0 +1,11 @@
+.img-sm {
+    width: 50px;
+}
+
+.img-md {
+    width: 70px;
+}
+
+.dropdown-menu {
+    inset: 6px 0px auto auto !important;
+}
