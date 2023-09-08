@@ -5,7 +5,9 @@
 package com.dpt.repository.impl;
 
 import com.dpt.pojo.Comment;
+import com.dpt.pojo.Post;
 import com.dpt.repository.CommentRepository;
+import com.dpt.service.PostService;
 import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.HibernateException;
@@ -25,6 +27,9 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+
+    @Autowired
+    private PostService postService;
 
     @Override
     public List<Comment> getComments() {
@@ -60,5 +65,37 @@ public class CommentRepositoryImpl implements CommentRepository {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Comment> getCommentByPostId(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Post post = this.postService.getPostById(id);
+        Query query = session.createQuery("from Comment where postId=:post");
+        query.setParameter("post", post);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public Comment add(Comment comment) {
+        Session session = this.factory.getObject().getCurrentSession();
+        session.save(comment);
+
+        return comment;
+    }
+
+    @Override
+    public Comment getCommentById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Comment.class, id);
+    }
+
+    @Override
+    public Comment update(Comment comment) {
+        Session session = this.factory.getObject().getCurrentSession();
+        session.update(comment);
+
+        return comment;
     }
 }

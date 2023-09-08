@@ -4,6 +4,7 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -50,10 +51,12 @@ public class Comment implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     @ManyToOne

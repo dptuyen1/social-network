@@ -94,5 +94,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
     }
-
 }

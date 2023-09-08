@@ -15,4 +15,13 @@ public interface CommentService {
 
     List<Comment> getComments();
 
+    List<Comment> getCommentsByPostId(int id);
+
+    Comment add(Comment comment);
+
+    boolean delete(int id);
+
+    Comment getCommentById(int id);
+
+    Comment update(int id, Comment comment);
 }

@@ -4,6 +4,8 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -25,7 +27,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByCover", query = "SELECT u FROM User u WHERE u.cover = :cover"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
+@JsonIgnoreProperties({"postSet", "postDetailsSet", "commentSet", "file"})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,6 +83,7 @@ public class User implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
     @Column(name = "active")
     private Boolean active;
@@ -96,12 +99,6 @@ public class User implements Serializable {
 
     @Transient
     private MultipartFile file;
-
-    @Transient
-    private String confirmPassword;
-
-    @Transient
-    private String formerStudentId;
 
     public User() {
     }
@@ -190,37 +187,16 @@ public class User implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public Set<Post> getPostSet() {
-        return postSet;
-    }
-
-    public void setPostSet(Set<Post> postSet) {
-        this.postSet = postSet;
-    }
-
-    @XmlTransient
-    public Set<PostDetails> getPostDetailsSet() {
-        return postDetailsSet;
-    }
-
-    public void setPostDetailsSet(Set<PostDetails> postDetailsSet) {
-        this.postDetailsSet = postDetailsSet;
-    }
-
-    @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
-
+    /**
+     * @return the roleId
+     */
     public Role getRoleId() {
         return roleId;
     }
 
+    /**
+     * @param roleId the roleId to set
+     */
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
@@ -237,34 +213,6 @@ public class User implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
-    }
-
-    /**
-     * @return the confirmPassword
-     */
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    /**
-     * @return the formerStudentId
-     */
-    public String getFormerStudentId() {
-        return formerStudentId;
-    }
-
-    /**
-     * @param formerStudentId the formerStudentId to set
-     */
-    public void setFormerStudentId(String formerStudentId) {
-        this.formerStudentId = formerStudentId;
     }
 
     @Override

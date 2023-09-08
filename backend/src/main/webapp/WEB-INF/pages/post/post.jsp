@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div class="d-flex align-items-center justify-content-between w-100 my-4">
+<div class="d-flex align-items-center justify-content-between w-100 my-4 post">
     <h5 class="text-center">Quản lý bài đăng</h5>
     <a href="/posts/add" class="btn btn-success">
         <i class="fa-regular fa-square-plus"></i>
@@ -53,11 +53,11 @@
                     ${post.userId.firstName} ${post.userId.lastName}
                 </td>
                 <td>
-                    <a href="/post-details/${post.id}" class="btn btn-warning btn-sm text-white">
+<!--                    <a href="/post-details/${post.id}" class="btn btn-warning btn-sm text-white">
                         <i class="fa-solid fa-pen"></i>
-                        <!--Cập nhật-->
-                    </a>
-                    <c:url value="/api/posts/${post.id}" var="api"/>
+                        Cập nhật
+                    </a>-->
+                    <c:url value="/api/posts/${post.id}/delete" var="api"/>
                     <button type="button" class="btn btn-danger btn-sm" onclick="deletePost('${api}')">
                         <i class="fa-solid fa-trash"></i>
                         <!--Xóa-->

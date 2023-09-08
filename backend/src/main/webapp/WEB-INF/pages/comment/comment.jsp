@@ -9,10 +9,10 @@
 <!DOCTYPE html>
 <div class="d-flex align-items-center justify-content-between w-100 my-4">
     <h5 class="text-center">Quản lý bình luận</h5>
-    <a href="/comments/add" class="btn btn-success">
-        <i class="fa-regular fa-square-plus"></i>
-        Thêm bình luận
-    </a>
+    <!--    <a href="/comments/add" class="btn btn-success">
+            <i class="fa-regular fa-square-plus"></i>
+            Thêm bình luận
+        </a>-->
 </div>
 <table class="table table-hover mt-2 text-center">
     <thead>
@@ -23,7 +23,7 @@
             <th scope="col">Ngày chỉnh sửa</th>
             <th scope="col">Người đăng</th>
             <th scope="col">Bài đăng</th>
-            <th scope="col">Tùy chỉnh</th>
+            <!--            <th scope="col">Tùy chỉnh</th>-->
         </tr>
     </thead>
     <tbody>
@@ -46,15 +46,15 @@
                 <td class="text-truncate" style="max-width: 200px;" title="${comment.postId.content}">
                     ${comment.postId.content}
                 </td>
-                <td>
-                    <a href="/comment-details/${comment.id}" class="btn btn-warning btn-sm text-white">
-                        <i class="fa-solid fa-pen"></i>
-                    </a>
-                    <c:url value="/api/comments/${comment.id}" var="api"/>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteComment('${api}')">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
+                <!--                <td>
+                                    <a href="/comment-details/${comment.id}" class="btn btn-warning btn-sm text-white">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                <c:url value="/api/comments/${comment.id}" var="api"/>
+                <button type="button" class="btn btn-danger btn-sm" onclick="deleteComment('${api}')">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </td>-->
             </tr>
         </c:forEach>
     </tbody>

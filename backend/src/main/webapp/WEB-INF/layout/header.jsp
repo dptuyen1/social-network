@@ -19,6 +19,7 @@
                     <li><a href="<c:url value="/comments" />" class="nav-link px-2 text-dark">Bình luận</a></li>
                     <li><a href="<c:url value="/reactions" />" class="nav-link px-2 text-dark">Biểu cảm</a></li>
                     <li><a href="<c:url value="/roles" />" class="nav-link px-2 text-dark">Quyền</a></li>
+                    <li><a href="<c:url value="/announce" />" class="nav-link px-2 text-dark">Đăng thông báo</a></li>
                     </sec:authorize>
             </ul>
 
