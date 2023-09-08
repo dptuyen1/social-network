@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
 
         //Dang ky tai khoan giao vien
         if (user.getPassword() == null) {
-//            user.setPassword(this.passwordEncoder.encode("ou@123"));
-            user.setPassword("ou@123");
+            user.setPassword(this.passwordEncoder.encode("ou@123"));
+//            user.setPassword("ou@123");
             user.setRoleId(roles.get(1));
         } else { //Dang ky tai khoan sinh vien
             user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            user.setAvatar("https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png");
+            user.setAvatar("https://res.cloudinary.com/dzbcst18v/image/upload/v1693284144/trfuq7zhrnknwh8rtdhb.png");
         }
 
         user.setCreatedDate(new Date());

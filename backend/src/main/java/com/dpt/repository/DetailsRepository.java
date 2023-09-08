@@ -15,6 +15,13 @@ public interface DetailsRepository {
 
     PostDetails add(PostDetails details);
 
-//    List<PostDetails> get(int userId, int postId);
+    PostDetails update(PostDetails details);
+
     List<PostDetails> get(int postId);
+
+    PostDetails existedDetails(int userId, int postId);
+
+    boolean delete(PostDetails details);
+
+    PostDetails getDetailsById(int id);
 }

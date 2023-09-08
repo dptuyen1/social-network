@@ -43,9 +43,7 @@ import org.springframework.format.annotation.DateTimeFormat;
     @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content"),
     @NamedQuery(name = "Post.findByCreatedDate", query = "SELECT p FROM Post p WHERE p.createdDate = :createdDate"),
     @NamedQuery(name = "Post.findByUpdatedDate", query = "SELECT p FROM Post p WHERE p.updatedDate = :updatedDate"),
-    @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status"),
-    @NamedQuery(name = "Post.findByTotalComment", query = "SELECT p FROM Post p WHERE p.totalComment = :totalComment"),
-    @NamedQuery(name = "Post.findByTotalReaction", query = "SELECT p FROM Post p WHERE p.totalReaction = :totalReaction")})
+    @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status")})
 @JsonIgnoreProperties({"postDetailsSet", "commentSet"})
 public class Post implements Serializable {
 
@@ -55,7 +53,7 @@ public class Post implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 2147483647)
     @Column(name = "content")
     private String content;
     @Column(name = "created_date")
@@ -70,10 +68,6 @@ public class Post implements Serializable {
     private Date updatedDate;
     @Column(name = "status")
     private Boolean status;
-    @Column(name = "total_comment")
-    private Integer totalComment;
-    @Column(name = "total_reaction")
-    private Integer totalReaction;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
@@ -127,22 +121,6 @@ public class Post implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public Integer getTotalComment() {
-        return totalComment;
-    }
-
-    public void setTotalComment(Integer totalComment) {
-        this.totalComment = totalComment;
-    }
-
-    public Integer getTotalReaction() {
-        return totalReaction;
-    }
-
-    public void setTotalReaction(Integer totalReaction) {
-        this.totalReaction = totalReaction;
     }
 
     public User getUserId() {

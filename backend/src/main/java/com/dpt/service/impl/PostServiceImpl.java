@@ -6,8 +6,10 @@ package com.dpt.service.impl;
 
 import com.dpt.pojo.Comment;
 import com.dpt.pojo.Post;
+import com.dpt.pojo.PostDetails;
 import com.dpt.pojo.User;
 import com.dpt.repository.CommentRepository;
+import com.dpt.repository.DetailsRepository;
 import com.dpt.repository.PostRepository;
 import com.dpt.repository.UserRepository;
 import com.dpt.service.PostService;
@@ -34,6 +36,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private DetailsRepository detailsRepository;
+
     @Override
     public List<Post> getPosts() {
         return this.repository.getPosts();
@@ -51,8 +56,6 @@ public class PostServiceImpl implements PostService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = this.userRepository.getUserByUsername(authentication.getName());
         post.setUserId(user);
-        post.setTotalComment(0);
-        post.setTotalReaction(0);
 
         return this.repository.addOrUpdate(post);
     }
@@ -67,24 +70,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean delete(int id) {
         List<Comment> list = this.commentRepository.getCommentByPostId(id);
+        List<PostDetails> details = this.detailsRepository.get(id);
 
         for (Comment c : list) {
             this.commentRepository.delete(c);
         }
 
+        for (PostDetails d : details) {
+            this.detailsRepository.delete(d);
+        }
+
         Post post = this.repository.getPostById(id);
         return this.repository.delete(post);
-    }
-
-    @Override
-    public boolean lockAndUnlock(int id) {
-        Post post = this.repository.getPostById(id);
-        if (post.getStatus() == true) {
-            post.setStatus(false);
-        } else {
-            post.setStatus(true);
-        }
-        return this.repository.addOrUpdate(post);
     }
 
     @Override
@@ -105,8 +102,6 @@ public class PostServiceImpl implements PostService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = this.userRepository.getUserByUsername(authentication.getName());
         post.setUserId(user);
-        post.setTotalComment(0);
-        post.setTotalReaction(0);
 
         return this.repository.add(post);
     }
@@ -124,17 +119,4 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPostsByUser(int id) {
         return this.repository.getPostsByUser(id);
     }
-
-    @Override
-    public void increaseComment(Post post) {
-        if (post.getTotalComment() == null) {
-            post.setTotalComment(1);
-        } else {
-            int total = post.getTotalComment();
-            post.setTotalComment(total + 1);
-        }
-
-        this.repository.addOrUpdate(post);
-    }
-
 }

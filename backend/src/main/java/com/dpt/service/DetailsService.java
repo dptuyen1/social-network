@@ -15,6 +15,14 @@ public interface DetailsService {
 
     PostDetails add(PostDetails details);
 
-//    List<PostDetails> get(int userId, int postId);
+    PostDetails update(int id, PostDetails details);
+
     List<PostDetails> get(int postId);
+
+    PostDetails existedDetails(int userId, int postId);
+
+    boolean delete(int id);
+
+    PostDetails getDetailsById(int id);
+
 }
