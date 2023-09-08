@@ -45,7 +45,7 @@ public class Comment implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 16777215)
     @Column(name = "content")
     private String content;
     @Column(name = "created_date")

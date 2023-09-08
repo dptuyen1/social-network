@@ -25,13 +25,9 @@ public interface PostService {
 
     boolean delete(int id);
 
-    boolean lockAndUnlock(int id);
-
     boolean changeStatus(int id);
 
     Post addP(Post post);
 
     Post updateP(int id, Post post);
-
-    void increaseComment(Post post);
 }

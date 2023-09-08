@@ -41,8 +41,8 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean addOrUpdate(Comment comment) {
+        Session session = this.factory.getObject().getCurrentSession();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
             if (comment.getId() == null) {
                 session.save(comment);
             } else {
@@ -57,8 +57,8 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public boolean delete(Comment comment) {
+        Session session = this.factory.getObject().getCurrentSession();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
             session.delete(comment);
             return true;
         } catch (HibernateException ex) {

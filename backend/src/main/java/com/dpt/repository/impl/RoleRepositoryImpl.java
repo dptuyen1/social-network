@@ -42,15 +42,14 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public boolean addOrUpdate(Role role) {
+        Session session = this.factory.getObject().getCurrentSession();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
             if (role.getId() == null) {
                 session.save(role);
             } else {
                 session.update(role);
             }
             return true;
-
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;

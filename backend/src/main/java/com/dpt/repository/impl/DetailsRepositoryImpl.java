@@ -16,8 +16,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,33 +39,11 @@ public class DetailsRepositoryImpl implements DetailsRepository {
     @Override
     public PostDetails add(PostDetails details) {
         Session session = this.factory.getObject().getCurrentSession();
+        session.save(details);
 
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            User user = this.userRepository.getUserByUsername(authentication.getName());
-            details.setUserId(user);
-
-            session.save(details);
-            return details;
-        } catch (HibernateException ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        return details;
     }
 
-//    @Override
-//    public List<PostDetails> get(int userId, int postId) {
-//        Session session = this.factory.getObject().getCurrentSession();
-//
-//        Post post = this.postRepository.getPostById(postId);
-//        User user = this.userRepository.getUserById(userId);
-//        Query query = session.createQuery("from PostDetails where postId=:post and userId=:user order by id desc");
-//        query.setParameter("post", post);
-//        query.setParameter("user", user);
-//        query.setMaxResults(1);
-//
-//        return query.getResultList();
-//    }
     @Override
     public List<PostDetails> get(int postId) {
         Session session = this.factory.getObject().getCurrentSession();
@@ -75,10 +51,46 @@ public class DetailsRepositoryImpl implements DetailsRepository {
         Post post = this.postRepository.getPostById(postId);
         Query query = session.createQuery("from PostDetails where postId=:post");
         query.setParameter("post", post);
-//        query.setParameter("user", user);
-//        query.setMaxResults(1);
 
         return query.getResultList();
+    }
+
+    @Override
+    public PostDetails existedDetails(int userId, int postId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Post post = this.postRepository.getPostById(postId);
+        User user = this.userRepository.getUserById(userId);
+        Query query = session.createQuery("from PostDetails where postId=:post and userId=:user");
+        query.setParameter("post", post);
+        query.setParameter("user", user);
+
+        return (PostDetails) query.getSingleResult();
+    }
+
+    @Override
+    public boolean delete(PostDetails details) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.delete(details);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public PostDetails getDetailsById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(PostDetails.class, id);
+    }
+
+    @Override
+    public PostDetails update(PostDetails details) {
+        Session session = this.factory.getObject().getCurrentSession();
+        session.update(details);
+
+        return details;
     }
 
 }

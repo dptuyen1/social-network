@@ -42,8 +42,8 @@ public class ReactionRepositoryImpl implements ReactionRepository {
 
     @Override
     public boolean addOrUpdate(Reaction reaction) {
+        Session session = this.factory.getObject().getCurrentSession();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
             if (reaction.getId() == null) {
                 session.save(reaction);
             } else {
@@ -58,8 +58,8 @@ public class ReactionRepositoryImpl implements ReactionRepository {
 
     @Override
     public boolean delete(Reaction reaction) {
+        Session session = this.factory.getObject().getCurrentSession();
         try {
-            Session session = this.factory.getObject().getCurrentSession();
             session.delete(reaction);
             return true;
         } catch (HibernateException ex) {
