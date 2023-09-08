@@ -50,7 +50,7 @@ public class SignupController {
             if (!result.hasErrors()) {
                 if (this.userService.add(user)) {
                     this.mailService.sendMail(user.getEmail(), user.getUsername());
-                    return "redirect:/login";
+                    return "redirect:/users";
                 } else {
                     msg = "Đăng ký tài khoản thất bại. Có lỗi xảy ra, vui lòng thử lại!...";
                 }

@@ -15,9 +15,15 @@ public interface PostRepository {
 
     List<Post> getPosts();
 
+    List<Post> getPostsByUser(int id);
+
     Post getPostById(int id);
 
     boolean addOrUpdate(Post post);
 
+    Post add(Post post);
+
     boolean delete(Post post);
+
+    boolean changeStatus(Post post);
 }

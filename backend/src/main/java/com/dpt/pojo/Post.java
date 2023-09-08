@@ -4,6 +4,8 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -11,6 +13,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,6 +46,7 @@ import org.springframework.format.annotation.DateTimeFormat;
     @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status"),
     @NamedQuery(name = "Post.findByTotalComment", query = "SELECT p FROM Post p WHERE p.totalComment = :totalComment"),
     @NamedQuery(name = "Post.findByTotalReaction", query = "SELECT p FROM Post p WHERE p.totalReaction = :totalReaction")})
+@JsonIgnoreProperties({"postDetailsSet", "commentSet"})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,10 +61,12 @@ public class Post implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "updated_date")
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
     @Column(name = "status")
     private Boolean status;
@@ -71,9 +77,9 @@ public class Post implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId", fetch = FetchType.LAZY)
     private Set<PostDetails> postDetailsSet;
-    @OneToMany(mappedBy = "postId")
+    @OneToMany(mappedBy = "postId", fetch = FetchType.LAZY)
     private Set<Comment> commentSet;
 
     public Post() {

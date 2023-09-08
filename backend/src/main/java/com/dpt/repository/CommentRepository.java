@@ -15,7 +15,15 @@ public interface CommentRepository {
 
     List<Comment> getComments();
 
+    List<Comment> getCommentByPostId(int id);
+
+    Comment getCommentById(int id);
+
     boolean addOrUpdate(Comment comment);
 
     boolean delete(Comment comment);
+
+    Comment add(Comment comment);
+
+    Comment update(Comment comment);
 }

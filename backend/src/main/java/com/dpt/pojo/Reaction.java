@@ -4,6 +4,8 @@
  */
 package com.dpt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -35,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Reaction.findById", query = "SELECT r FROM Reaction r WHERE r.id = :id"),
     @NamedQuery(name = "Reaction.findByName", query = "SELECT r FROM Reaction r WHERE r.name = :name"),
     @NamedQuery(name = "Reaction.findByIcon", query = "SELECT r FROM Reaction r WHERE r.icon = :icon")})
+@JsonIgnoreProperties({"postDetailsSet", "file"})
 public class Reaction implements Serializable {
 
     private static final long serialVersionUID = 1L;

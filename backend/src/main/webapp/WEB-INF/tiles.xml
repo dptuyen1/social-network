@@ -76,6 +76,11 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/user/user-details.jsp" />
     </definition>
+    <definition name="announce" extends="baseLayout">
+        <put-attribute name="title" value="Đăng thông báo" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/announce/announce.jsp" />
+    </definition>
 </tiles-definitions>
 
 

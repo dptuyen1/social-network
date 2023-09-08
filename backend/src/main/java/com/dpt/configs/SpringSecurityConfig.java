@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -58,7 +59,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");
 
-        http.authorizeRequests().antMatchers("/").access("hasAuthority('admin')")
+        http.authorizeRequests()
+                .antMatchers("/").access("hasAuthority('admin')")
                 .antMatchers("/posts").access("hasAuthority('admin')")
                 .antMatchers("/posts/**").access("hasAuthority('admin')")
                 .antMatchers("/comments").access("hasAuthority('admin')")
@@ -69,7 +71,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/roles/**").access("hasAuthority('admin')")
                 .antMatchers("/users").access("hasAuthority('admin')")
                 .antMatchers("/users/**").access("hasAuthority('admin')")
-                .antMatchers("/signup").access("hasAuthority('admin')");
+                .antMatchers("/signup").access("hasAuthority('admin')")
+                .antMatchers(HttpMethod.DELETE, "/api/**").access("hasAuthority('admin') or hasAuthority('teacher') or hasAuthority('student')");
 
         http.csrf().disable();
     }

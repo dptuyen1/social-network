@@ -6,6 +6,7 @@ package com.dpt.repository;
 
 import com.dpt.pojo.User;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,11 +14,17 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    List<User> getUsers();
+    List<User> getUsers(Map<String, String> params);
 
     boolean addOrUpdate(User user);
 
     User getUserByUsername(String username);
 
+    User getUserById(int id);
+
     boolean authUser(String username, String password);
+
+    User add(User user);
+
+    int count();
 }

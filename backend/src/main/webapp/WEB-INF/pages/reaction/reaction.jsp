@@ -36,9 +36,9 @@
                         <i class="fa-solid fa-pen"></i>
                     </a>
                     <c:url value="/api/reactions/${reaction.id}" var="api"/>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteReaction('${api}')">
+<!--                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteReaction('${api}')">
                         <i class="fa-solid fa-trash"></i>
-                    </button>
+                    </button>-->
                 </td>
             </tr>
         </c:forEach>

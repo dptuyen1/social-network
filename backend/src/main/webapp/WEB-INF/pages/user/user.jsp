@@ -18,9 +18,9 @@
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Họ</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Email</th>
+            <!--            <th scope="col">Họ</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Email</th>-->
             <th scope="col">Tài khoản</th>
             <th scope="col">Mật khẩu</th>
             <th scope="col">Ngày tạo</th>
@@ -33,9 +33,9 @@
         <c:forEach items="${users}" var="user">
             <tr>
                 <th scope="row">${user.id}</th>
-                <td>${user.lastName}</td>
+<!--                <td>${user.lastName}</td>
                 <td>${user.firstName}</td>
-                <td>${user.email}</td>
+                <td>${user.email}</td>-->
                 <td>${user.username}</td>
                 <td class="text-truncate" style="max-width: 200px" title="#${user.password}">${user.password}</td>
                 <td><input type="datetime-local" value="${user.createdDate}" readonly="true" class="form-control text-center"/></td>
@@ -57,12 +57,24 @@
                         <!--Cập nhật-->
                     </a>
                     <c:url value="/api/users/${user.id}" var="api"/>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePost('${api}')">
+<!--                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePost('${api}')">
                         <i class="fa-solid fa-trash"></i>
-                        <!--Xóa-->
-                    </button>
+                        Xóa
+                    </button>-->
                 </td>
             </tr>
         </c:forEach>
     </tbody>
 </table>
+
+<c:if test="${counter > 1}">
+    <ul class="pagination d-flex align-items-center justify-content-center">
+        <li class="page-item"><a class="page-link" href="<c:url value="/users"></c:url>">Tất cả</a></li>
+            <c:forEach begin="1" end="${counter}" var="i">
+                <c:url value="" var="pageAction">
+                    <c:param name="page" value="${i}" />
+                </c:url>
+            <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+            </c:forEach>
+    </ul>
+</c:if>

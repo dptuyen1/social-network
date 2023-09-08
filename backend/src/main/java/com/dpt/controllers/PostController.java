@@ -7,7 +7,6 @@ package com.dpt.controllers;
 import com.dpt.pojo.Post;
 import com.dpt.service.PostService;
 import com.dpt.service.UserService;
-import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,9 +44,9 @@ public class PostController {
     }
 
     @PostMapping("/posts/add")
-    public String add(Model model, @ModelAttribute(value = "post") @Valid Post post, BindingResult result, Principal principal) {
+    public String add(Model model, @ModelAttribute(value = "post") @Valid Post post, BindingResult result) {
         if (!result.hasErrors()) {
-            if (this.postService.add(post, principal)) {
+            if (this.postService.add(post)) {
                 return "redirect:/posts";
             }
         } else {
@@ -61,7 +60,7 @@ public class PostController {
     @GetMapping("/post-details/{id}")
     public String details(Model model, @PathVariable(value = "id") int id) {
         model.addAttribute("post", this.postService.getPostById(id));
-        model.addAttribute("users", this.userService.getUsers());
+        model.addAttribute("users", this.userService.getUsers(null));
         return "post-details";
     }
 

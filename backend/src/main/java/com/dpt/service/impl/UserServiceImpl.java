@@ -8,8 +8,8 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.dpt.pojo.Role;
 import com.dpt.pojo.User;
+import com.dpt.repository.RoleRepository;
 import com.dpt.repository.UserRepository;
-import com.dpt.service.RoleService;
 import com.dpt.service.UserService;
 import java.io.IOException;
 import java.util.Date;
@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Autowired
-    private RoleService service;
+    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -48,17 +49,18 @@ public class UserServiceImpl implements UserService {
     private Cloudinary cloudinary;
 
     @Override
-    public List<User> getUsers() {
-        return this.repository.getUsers();
+    public List<User> getUsers(Map<String, String> params) {
+        return this.repository.getUsers(params);
     }
 
     @Override
     public boolean add(User user) {
-        List<Role> roles = this.service.getRoles();
+        List<Role> roles = this.roleRepository.getRoles();
 
         //Dang ky tai khoan giao vien
         if (user.getPassword() == null) {
-            user.setPassword(this.passwordEncoder.encode("ou@123"));
+//            user.setPassword(this.passwordEncoder.encode("ou@123"));
+            user.setPassword("ou@123");
             user.setRoleId(roles.get(1));
         } else { //Dang ky tai khoan sinh vien
             user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -114,5 +116,50 @@ public class UserServiceImpl implements UserService {
     public boolean update(User user) {
         //admin update
         return this.repository.addOrUpdate(user);
+    }
+
+    @Override
+    public User add(Map<String, String> params, MultipartFile file) {
+        List<Role> roles = this.roleRepository.getRoles();
+
+        User user = new User();
+        user.setLastName(params.get("lastName"));
+        user.setFirstName(params.get("firstName"));
+        user.setEmail(params.get("email"));
+        user.setUsername(params.get("username"));
+        user.setPassword(this.passwordEncoder.encode(params.get("password")));
+        user.setActive(true);
+        user.setCreatedDate(new Date());
+        user.setRoleId(roles.get(2));
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                user.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            user.setAvatar("https://res.cloudinary.com/dzbcst18v/image/upload/v1693284144/trfuq7zhrnknwh8rtdhb.png");
+        }
+
+        return this.repository.add(user);
+    }
+
+    public boolean changePassword(String username, User user) {
+        User u = this.repository.getUserByUsername(username);
+
+        u.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        return this.repository.addOrUpdate(u);
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return this.repository.getUserById(id);
+    }
+
+    @Override
+    public int count() {
+        return this.repository.count();
     }
 }
