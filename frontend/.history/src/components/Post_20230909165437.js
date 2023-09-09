@@ -131,12 +131,12 @@ const Post = ({ props }) => {
 
                         setDetails((prevDetails) => {
                             const updatedDetails = [...prevDetails];
-                            const detailIndex = updatedDetails.findIndex((detail) => detail.id === r.data.id);
+                            const detailIndex = updatedDetails.findIndex((detail) => detail.id === id);
 
                             console.log(detailIndex);
 
                             if (detailIndex !== -1) {
-                                updatedDetails[detailIndex].reactionId = res.data.reactionId;
+                                updatedDetails[detailIndex].content = res.data.content;
                             }
 
                             return updatedDetails;

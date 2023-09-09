@@ -124,23 +124,12 @@ const Post = ({ props }) => {
                         console.log(error);
                     }
                 } else if (r.status === 226) {
+                    console.log(r.data);
                     try {
-                        let res = await authApi().put(endpoints['edit-detail'](r.data.id), {
+                        let res = await authApi().post(endpoints['edit-detail'], {
                             reactionId: reactionId,
                         });
-
-                        setDetails((prevDetails) => {
-                            const updatedDetails = [...prevDetails];
-                            const detailIndex = updatedDetails.findIndex((detail) => detail.id === r.data.id);
-
-                            console.log(detailIndex);
-
-                            if (detailIndex !== -1) {
-                                updatedDetails[detailIndex].reactionId = res.data.reactionId;
-                            }
-
-                            return updatedDetails;
-                        });
+                        setDetails((prev) => [...prev, res.data]);
                     } catch (error) {
                         console.log(error);
                     }

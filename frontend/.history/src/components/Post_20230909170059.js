@@ -128,19 +128,6 @@ const Post = ({ props }) => {
                         let res = await authApi().put(endpoints['edit-detail'](r.data.id), {
                             reactionId: reactionId,
                         });
-
-                        setDetails((prevDetails) => {
-                            const updatedDetails = [...prevDetails];
-                            const detailIndex = updatedDetails.findIndex((detail) => detail.id === r.data.id);
-
-                            console.log(detailIndex);
-
-                            if (detailIndex !== -1) {
-                                updatedDetails[detailIndex].reactionId = res.data.reactionId;
-                            }
-
-                            return updatedDetails;
-                        });
                     } catch (error) {
                         console.log(error);
                     }

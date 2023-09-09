@@ -45,7 +45,7 @@ public class DetailsApi {
         PostDetails details = this.detailsService.existedDetails(userId, postId);
 
         if (details != null) {
-            return new ResponseEntity<>("Existed", HttpStatus.FOUND);
+            return new ResponseEntity<>(details, HttpStatus.IM_USED);
         } else {
             return new ResponseEntity<>("New", HttpStatus.OK);
         }

@@ -136,7 +136,7 @@ const Post = ({ props }) => {
                             console.log(detailIndex);
 
                             if (detailIndex !== -1) {
-                                updatedDetails[detailIndex].reactionId = res.data.reactionId;
+                                updatedDetails[detailIndex].content = res.data.content;
                             }
 
                             return updatedDetails;

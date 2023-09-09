@@ -129,18 +129,7 @@ const Post = ({ props }) => {
                             reactionId: reactionId,
                         });
 
-                        setDetails((prevDetails) => {
-                            const updatedDetails = [...prevDetails];
-                            const detailIndex = updatedDetails.findIndex((detail) => detail.id === r.data.id);
-
-                            console.log(detailIndex);
-
-                            if (detailIndex !== -1) {
-                                updatedDetails[detailIndex].reactionId = res.data.reactionId;
-                            }
-
-                            return updatedDetails;
-                        });
+                        setDetails((prevDetails) => prevDetails.filter((detail) => detail.id !== res.data.id));
                     } catch (error) {
                         console.log(error);
                     }
