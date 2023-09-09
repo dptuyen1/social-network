@@ -18,9 +18,9 @@
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nội dung</th>
             <th scope="col">Ngày tạo</th>
             <th scope="col">Ngày chỉnh sửa</th>
+            <th scope="col">Nội dung</th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Người đăng</th>
             <th scope="col">Tùy chỉnh</th>
@@ -30,7 +30,6 @@
         <c:forEach items="${posts}" var="post">
             <tr>
                 <th scope="row">${post.id}</th>
-                <td  class="text-truncate" style="max-width: 200px" title="${post.content}">${post.content}</td>
                 <td><input type="datetime-local" value="${post.createdDate}" readonly="true" class="form-control text-center"/></td>
                     <c:choose>
                         <c:when test="${post.updatedDate != null}">
@@ -40,6 +39,7 @@
                         <td><input type="text" readonly="true" class="form-control text-center"/></td>
                         </c:otherwise>
                     </c:choose>
+                <td  class="text-truncate" style="max-width: 200px" title="${post.content}">${post.content}</td>
 
                 <c:choose>
                     <c:when test="${post.status == true}">
