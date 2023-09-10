@@ -7,6 +7,7 @@ package com.dpt.service.impl;
 import com.dpt.repository.StatsRepository;
 import com.dpt.service.StatsService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,18 @@ public class StatsServiceImpl implements StatsService {
     private StatsRepository repository;
 
     @Override
-    public List<Object[]> countUserByRole() {
-        return this.repository.countUserByRole();
+    public List<Object[]> userStats() {
+        return this.repository.userStats();
     }
+
+    @Override
+    public List<Object[]> postStats(Map<String, String> params) {
+        return this.repository.postStats(params);
+    }
+
+    @Override
+    public List<Integer> getYears() {
+        return this.repository.getYears();
+    }
+
 }
