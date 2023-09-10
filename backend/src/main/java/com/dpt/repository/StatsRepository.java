@@ -5,6 +5,7 @@
 package com.dpt.repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -12,5 +13,9 @@ import java.util.List;
  */
 public interface StatsRepository {
 
-    List<Object[]> countUserByRole();
+    List<Object[]> userStats();
+
+    List<Object[]> postStats(Map<String, String> params);
+
+    List<Integer> getYears();
 }

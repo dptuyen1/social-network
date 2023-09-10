@@ -5,6 +5,7 @@
 package com.dpt.service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -12,6 +13,9 @@ import java.util.List;
  */
 public interface StatsService {
 
-    List<Object[]> countUserByRole();
+    List<Object[]> userStats();
 
+    List<Object[]> postStats(Map<String, String> params);
+
+    List<Integer> getYears();
 }

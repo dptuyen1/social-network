@@ -5,10 +5,12 @@
 package com.dpt.controllers;
 
 import com.dpt.service.StatsService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -21,8 +23,11 @@ public class IndexController {
     private StatsService statsService;
 
     @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("users", this.statsService.countUserByRole());
+    public String index(Model model, @RequestParam(required = false) Map<String, String> params) {
+        model.addAttribute("users", this.statsService.userStats());
+        model.addAttribute("posts", this.statsService.postStats(params));
+        model.addAttribute("years", this.statsService.getYears());
+
         return "index";
     }
 }
