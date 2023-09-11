@@ -31,4 +31,13 @@ public class MailServiceImpl implements MailService {
 
         mailSender.send(mailMessage);
     }
+
+    @Override
+    public void sendAnnounce(String to, String subject, String text) {
+        mailMessage.setTo(to);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(text);
+
+        mailSender.send(mailMessage);
+    }
 }

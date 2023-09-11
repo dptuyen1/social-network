@@ -56,11 +56,9 @@
                         <i class="fa-solid fa-pen"></i>
                         <!--Cập nhật-->
                     </a>
-                    <c:url value="/api/users/${user.id}" var="api"/>
-<!--                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePost('${api}')">
-                        <i class="fa-solid fa-trash"></i>
-                        Xóa
-                    </button>-->
+                    <a href="/announce/user/${user.id}" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
                 </td>
             </tr>
         </c:forEach>

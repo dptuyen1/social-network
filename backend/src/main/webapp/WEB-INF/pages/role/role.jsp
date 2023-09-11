@@ -31,10 +31,9 @@
                     <a href="/role-details/${role.id}" class="btn btn-warning btn-sm text-white">
                         <i class="fa-solid fa-pen"></i>
                     </a>
-                    <!--                    <c:url value="/api/roles/${role.id}" var="api"/>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteReaction('${api}')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>-->
+                    <a href="/announce/role/${role.id}" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
                 </td>
             </tr>
         </c:forEach>

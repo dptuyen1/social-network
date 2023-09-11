@@ -4,6 +4,7 @@
  */
 package com.dpt.repository.impl;
 
+import com.dpt.pojo.Role;
 import com.dpt.pojo.User;
 import com.dpt.repository.UserRepository;
 import java.util.List;
@@ -108,5 +109,14 @@ public class UserRepositoryImpl implements UserRepository {
         Query query = session.createQuery("select count (*) from User");
 
         return Integer.parseInt(query.getSingleResult().toString());
+    }
+
+    @Override
+    public List<User> getUsersByRole(Role role) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("from User where roleId=:role");
+        query.setParameter("role", role);
+
+        return query.getResultList();
     }
 }
