@@ -17,5 +17,7 @@ public interface StatsService {
 
     List<Object[]> postStats(Map<String, String> params);
 
+    List<Object[]> postStatsByYear(Map<String, String> params);
+
     List<Integer> getYears();
 }

@@ -46,8 +46,8 @@ const Register = () => {
                         let response = await Api.post(endpoints['register'], form);
 
                         if (response.status === 201) {
-                            setLoading(!loading);
                             handleClose();
+                            setLoading(!loading);
                         }
                     } catch (err) {
                         console.log(err);
@@ -66,14 +66,12 @@ const Register = () => {
         };
 
         if (checkEmpty()) {
-            if (user.id.length < 10) setMsg('Mã số sinh viên có 10 số!');
+            if (user.id < 10) setMsg('Mã số sinh viên có 10 số!');
+            if (!checkId(user.id)) setMsg('Vui lòng nhập đúng mã số sinh viên!');
             else {
-                if (!checkId(user.id)) setMsg('Vui lòng nhập đúng mã số sinh viên!');
+                if (user.password === user.confirmPassword) process();
                 else {
-                    if (user.password === user.confirmPassword) process();
-                    else {
-                        setMsg('Mật khẩu không khớp!');
-                    }
+                    setMsg('Mật khẩu không khớp!');
                 }
             }
         } else {
@@ -212,7 +210,7 @@ const Register = () => {
 
                         <Form.Group>
                             <Form.Label>Ảnh đại diện</Form.Label>
-                            <Form.Control type="file" accept="image/*" ref={avatar} />
+                            <Form.Control type="file" accept="image/*" ref={avatar} required />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

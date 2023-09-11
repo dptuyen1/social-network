@@ -19,8 +19,8 @@
 
             <form:form cssClass="w-50" modelAttribute="role" method="POST" action="">
                 <div class="mb-3 mt-3">
-                    <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
-                    <form:input path="name" type="text" class="form-control" placeholder="Nội dung..."/>
+                    <form:errors path="name" element="div" cssClass="text-danger mb-2 mb-2"/>
+                    <form:input path="name" type="text" class="form-control" placeholder="Tên..."/>
                 </div>
                 <button type="submit" class="btn btn-primary">Cập nhật</button>
             </form:form>
@@ -35,7 +35,7 @@
 
             <form:form cssClass="w-50" modelAttribute="role" method="POST" action="">
                 <div class="mb-3 mt-3">
-                    <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
+                    <form:errors path="name" element="div" cssClass="text-danger mb-2 mb-2"/>
                     <form:input path="name" type="text" class="form-control" placeholder="Tên..."/>
                 </div>
                 <button type="submit" class="btn btn-primary">Thêm mới</button>

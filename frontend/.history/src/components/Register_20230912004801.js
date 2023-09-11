@@ -65,8 +65,8 @@ const Register = () => {
             }
         };
 
-        if (checkEmpty()) {
-            if (user.id.length < 10) setMsg('Mã số sinh viên có 10 số!');
+        if (checkEmpty() && avatar !== null) {
+            if (user.id < 10) setMsg('Mã số sinh viên có 10 số!');
             else {
                 if (!checkId(user.id)) setMsg('Vui lòng nhập đúng mã số sinh viên!');
                 else {

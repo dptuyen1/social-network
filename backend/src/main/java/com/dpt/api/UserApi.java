@@ -101,7 +101,7 @@ public class UserApi {
         User user = this.userService.getUserByUsername(username);
 
         if (user != null) {
-            return new ResponseEntity<>("User existed", HttpStatus.FOUND);
+            return new ResponseEntity<>("User existed", HttpStatus.IM_USED);
         } else {
             return new ResponseEntity<>("New user", HttpStatus.OK);
         }

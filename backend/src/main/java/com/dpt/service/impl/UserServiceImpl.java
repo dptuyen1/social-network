@@ -146,6 +146,7 @@ public class UserServiceImpl implements UserService {
         return this.repository.add(user);
     }
 
+    @Override
     public boolean changePassword(String username, User user) {
         User u = this.repository.getUserByUsername(username);
 
@@ -161,5 +162,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public int count() {
         return this.repository.count();
+    }
+
+    @Override
+    public void deactiveUser() {
+        List<User> users = this.repository.getUsers(null);
+        List<Role> roles = this.roleRepository.getRoles();
+        Date currentDate = new Date();
+
+        for (User user : users) {
+            long times = currentDate.getTime() - user.getCreatedDate().getTime();
+            long afterDay = times / (24 * 60 * 60 * 1000);
+
+            if (passwordEncoder.matches("ou@123", user.getPassword()) && user.getRoleId() == roles.get(1) && afterDay >= 1) {
+                user.setActive(false);
+                this.repository.addOrUpdate(user);
+            }
+        }
     }
 }

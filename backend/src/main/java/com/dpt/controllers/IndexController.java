@@ -27,6 +27,7 @@ public class IndexController {
         model.addAttribute("users", this.statsService.userStats());
         model.addAttribute("posts", this.statsService.postStats(params));
         model.addAttribute("years", this.statsService.getYears());
+        model.addAttribute("postsOfYears", this.statsService.postStatsByYear(params));
 
         return "index";
     }

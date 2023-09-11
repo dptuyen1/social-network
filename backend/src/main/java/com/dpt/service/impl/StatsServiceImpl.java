@@ -36,4 +36,9 @@ public class StatsServiceImpl implements StatsService {
         return this.repository.getYears();
     }
 
+    @Override
+    public List<Object[]> postStatsByYear(Map<String, String> params) {
+        return this.repository.postStatsByYear(params);
+    }
+
 }

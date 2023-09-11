@@ -9,10 +9,10 @@
 <!DOCTYPE html>
 <div class="d-flex align-items-center justify-content-between w-100 my-4 post">
     <h5 class="text-center">Quản lý bài đăng</h5>
-    <a href="/posts/add" class="btn btn-success">
-        <i class="fa-regular fa-square-plus"></i>
-        Thêm bài đăng
-    </a>
+    <!--    <a href="/posts/add" class="btn btn-success">
+            <i class="fa-regular fa-square-plus"></i>
+            Thêm bài đăng
+        </a>-->
 </div>
 <table class="table table-hover mt-2 text-center">
     <thead>

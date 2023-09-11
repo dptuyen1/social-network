@@ -119,6 +119,7 @@ const Post = ({ props }) => {
                             postId: props.id,
                             reactionId: reactionId,
                         });
+                        console.log(res);
                         setDetails((prev) => [...prev, res.data]);
                     } catch (error) {
                         console.log(error);

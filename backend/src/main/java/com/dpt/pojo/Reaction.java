@@ -45,7 +45,7 @@ public class Reaction implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(min = 1, max = 45, message = "{field.size}")
     @Column(name = "name")
     private String name;
     @Size(max = 255)
