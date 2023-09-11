@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @RequestMapping("/users")
-    public String index(Model model, @RequestParam Map<String, String> params) {
+    public String index(Model model, @RequestParam(required = false) Map<String, String> params) {
         model.addAttribute("users", this.userService.getUsers(params));
 
         int pageSize = Integer.parseInt(this.env.getProperty("page_size"));

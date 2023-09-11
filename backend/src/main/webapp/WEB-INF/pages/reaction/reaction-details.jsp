@@ -20,7 +20,7 @@
             <form:form cssClass="w-50" modelAttribute="reaction" method="POST" action="" enctype="multipart/form-data">
                 <form:hidden path="icon"/>
                 <div class="mb-3 mt-3">
-                    <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
+                    <form:errors path="name" element="div" cssClass="text-danger mb-2 mb-2"/>
                     <form:input path="name" type="text" class="form-control" placeholder="Nội dung..."/>
                 </div>
                 <div class="mb-3 mt-3">
@@ -35,7 +35,7 @@
         </c:when>
 
         <c:otherwise>
-            <h5 class="text-center">Thêm bài biểu cảm</h5>
+            <h5 class="text-center">Thêm biểu cảm</h5>
 
             <c:if test="${not empty msg}">
                 <h5 class="text-center text-danger">${msg}</h5>
@@ -43,7 +43,7 @@
 
             <form:form cssClass="w-50" modelAttribute="reaction" method="POST" action="" enctype="multipart/form-data">
                 <div class="mb-3 mt-3">
-                    <%--<form:errors path="lastName" element="div" cssClass="text-danger mb-2 mb-2"/>--%>
+                    <form:errors path="name" element="div" cssClass="text-danger mb-2 mb-2"/>
                     <form:input path="name" type="text" class="form-control" placeholder="Tên..."/>
                 </div>
                 <div class="mb-3 mt-3">

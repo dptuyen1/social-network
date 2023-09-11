@@ -58,17 +58,17 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(min = 1, max = 45, message = "{field.size}")
     @Column(name = "first_name")
     private String firstName;
-    @Size(max = 45)
+    @Size(min = 1, max = 45, message = "{field.size}")
     @Column(name = "last_name")
     private String lastName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 45)
+    @Size(min = 1, max = 45, message = "{field.size}")
     @Column(name = "email")
     private String email;
-    @Size(max = 45)
+    @Size(min = 1, max = 45, message = "{field.size}")
     @Column(name = "username")
     private String username;
     @Size(max = 255)

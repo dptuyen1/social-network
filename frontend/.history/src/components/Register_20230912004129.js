@@ -46,8 +46,9 @@ const Register = () => {
                         let response = await Api.post(endpoints['register'], form);
 
                         if (response.status === 201) {
-                            setLoading(!loading);
                             handleClose();
+                            setLoading(!loading);
+                            setUser({});
                         }
                     } catch (err) {
                         console.log(err);
@@ -66,7 +67,7 @@ const Register = () => {
         };
 
         if (checkEmpty()) {
-            if (user.id.length < 10) setMsg('Mã số sinh viên có 10 số!');
+            if (user.id < 10) setMsg('Mã số sinh viên có 10 số!');
             else {
                 if (!checkId(user.id)) setMsg('Vui lòng nhập đúng mã số sinh viên!');
                 else {
@@ -212,7 +213,7 @@ const Register = () => {
 
                         <Form.Group>
                             <Form.Label>Ảnh đại diện</Form.Label>
-                            <Form.Control type="file" accept="image/*" ref={avatar} />
+                            <Form.Control type="file" accept="image/*" ref={avatar} required={true} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>

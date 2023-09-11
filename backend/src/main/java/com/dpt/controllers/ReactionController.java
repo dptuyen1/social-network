@@ -46,7 +46,7 @@ public class ReactionController {
                 return "redirect:/reactions";
             }
         }
-        model.addAttribute("msg", "Có lỗi xảy ra... vui lòng thử lại");
+        model.addAttribute("msg", "Có lỗi xảy ra... vui lòng thử lại!");
         return "reaction-details";
     }
 

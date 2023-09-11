@@ -33,4 +33,6 @@ public interface UserService extends UserDetailsService {
     boolean changePassword(String username, User user);
 
     int count();
+
+    void deactiveUser();
 }

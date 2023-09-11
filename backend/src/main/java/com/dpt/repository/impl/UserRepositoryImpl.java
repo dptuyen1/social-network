@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements UserRepository {
         Session session = this.factory.getObject().getCurrentSession();
         Query query = session.createQuery("from User");
 
-        if (params != null) {
+        if (params != null && !params.isEmpty()) {
             String p = params.get("page");
             if (p != null && !p.isEmpty()) {
                 int page = Integer.parseInt(p);

@@ -65,6 +65,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/api/**");
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         http.authorizeRequests().antMatchers("/api/register").permitAll();
+        http.authorizeRequests().antMatchers("/api/existed-user/**").permitAll();
         http.authorizeRequests().antMatchers("/api/posts").permitAll();
         http.authorizeRequests().antMatchers("/api/comments").permitAll();
         http.authorizeRequests().antMatchers("/api/reactions").permitAll();

@@ -43,16 +43,18 @@ public class SignupController {
 
         String username = user.getUsername();
 
-        if (this.userService.getUserByUsername(username) != null) {
-            msg = "Tên tài khoản đã có người sử dụng, vui lòng thử lại tên khác!";
-        } else {
-            //them tai khoan cho giang vien!
-            if (!result.hasErrors()) {
-                if (this.userService.add(user)) {
-                    this.mailService.sendMail(user.getEmail(), user.getUsername());
-                    return "redirect:/users";
-                } else {
-                    msg = "Đăng ký tài khoản thất bại. Có lỗi xảy ra, vui lòng thử lại!...";
+        if (username != null && !username.isEmpty()) {
+            if (this.userService.getUserByUsername(username) != null) {
+                msg = "Tên tài khoản đã có người sử dụng, vui lòng thử lại tên khác!";
+            } else {
+                //them tai khoan cho giang vien!
+                if (!result.hasErrors()) {
+                    if (this.userService.add(user)) {
+                        this.mailService.sendMail(user.getEmail(), user.getUsername());
+                        return "redirect:/users";
+                    } else {
+                        msg = "Đăng ký tài khoản thất bại. Có lỗi xảy ra, vui lòng thử lại!...";
+                    }
                 }
             }
         }

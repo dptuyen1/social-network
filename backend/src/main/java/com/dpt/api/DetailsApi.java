@@ -5,7 +5,9 @@
 package com.dpt.api;
 
 import com.dpt.pojo.PostDetails;
+import com.dpt.pojo.Reaction;
 import com.dpt.service.DetailsService;
+import com.dpt.service.ReactionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,11 +35,18 @@ public class DetailsApi {
 
     @Autowired
     private DetailsService detailsService;
+    @Autowired
+    private ReactionService reactionService;
 
     @PostMapping(path = "/details/add", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public PostDetails add(@RequestBody PostDetails details) {
-        return this.detailsService.add(details);
+        PostDetails pd = this.detailsService.add(details);
+        Reaction reaction = this.reactionService.getReactionById(pd.getReactionId().getId());
+
+        pd.setReactionId(reaction);
+
+        return pd;
     }
 
     @GetMapping("/details/user/{userId}/post/{postId}")
@@ -65,6 +74,11 @@ public class DetailsApi {
     @PutMapping("/details/{id}/edit")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PostDetails update(@PathVariable(value = "id") int id, @RequestBody PostDetails details) {
-        return this.detailsService.update(id, details);
+        PostDetails pd = this.detailsService.update(id, details);
+        Reaction reaction = this.reactionService.getReactionById(pd.getReactionId().getId());
+
+        pd.setReactionId(reaction);
+
+        return pd;
     }
 }
