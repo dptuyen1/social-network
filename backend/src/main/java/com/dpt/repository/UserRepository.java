@@ -4,6 +4,7 @@
  */
 package com.dpt.repository;
 
+import com.dpt.pojo.Role;
 import com.dpt.pojo.User;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import java.util.Map;
 public interface UserRepository {
 
     List<User> getUsers(Map<String, String> params);
+
+    List<User> getUsersByRole(Role role);
 
     boolean addOrUpdate(User user);
 

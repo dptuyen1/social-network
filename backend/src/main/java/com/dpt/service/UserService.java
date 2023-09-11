@@ -4,6 +4,7 @@
  */
 package com.dpt.service;
 
+import com.dpt.pojo.Role;
 import com.dpt.pojo.User;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService extends UserDetailsService {
 
     List<User> getUsers(Map<String, String> params);
+
+    List<User> getUsersByRole(Role role);
 
     boolean add(User user);
 

@@ -180,4 +180,9 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    @Override
+    public List<User> getUsersByRole(Role role) {
+        return this.repository.getUsersByRole(role);
+    }
 }
