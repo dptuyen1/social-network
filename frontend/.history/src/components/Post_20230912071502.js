@@ -247,7 +247,6 @@ const Post = ({ props }) => {
 
                     if (postIndex !== -1) {
                         updatedPosts[postIndex].content = res.data.content;
-                        updatedPosts[postIndex].updatedDate = res.data.updatedDate;
                     }
 
                     return updatedPosts;
