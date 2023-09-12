@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: social-network
 -- ------------------------------------------------------
--- Server version	8.0.33
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `comment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `content` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL,
   `user_id` int NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `comment` (
   KEY `comment_ibfk_2` (`post_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'This is my first comment','2023-08-08 22:06:07',NULL,1,1);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,18 +56,16 @@ DROP TABLE IF EXISTS `post`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   `user_id` int NOT NULL,
-  `total_comment` int NOT NULL DEFAULT '0',
-  `total_reaction` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `post_ibfk_1` (`user_id`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +74,6 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'i changed my post again!','2023-08-21 22:16:00','2023-08-29 11:18:53',_binary '',121,0,0),(4,'change function!','2023-08-21 22:16:00','2023-08-25 11:26:43',_binary '',1,0,0),(5,'test post method - change method!testtttt','2023-08-21 22:16:00','2023-08-29 16:40:12',_binary '',122,0,0),(8,'add post!','2023-08-25 20:18:24',NULL,_binary '',1,0,0),(9,'add post again!','2023-08-25 20:49:46',NULL,_binary '',1,0,0),(14,'testttttt','2023-08-29 11:10:47',NULL,_binary '',1,0,0);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,11 +118,11 @@ DROP TABLE IF EXISTS `reaction`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reaction` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +131,7 @@ CREATE TABLE `reaction` (
 
 LOCK TABLES `reaction` WRITE;
 /*!40000 ALTER TABLE `reaction` DISABLE KEYS */;
-INSERT INTO `reaction` VALUES (1,'like','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/like_ixhhkc.png'),(2,'heart','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/love_dsmotv.png'),(3,'haha','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/haha_gwkcpd.png'),(4,'angry','https://res.cloudinary.com/dzbcst18v/image/upload/v1693277593/s7lshrdedldft58ytcb7.png'),(6,'care','https://res.cloudinary.com/dzbcst18v/image/upload/v1693284144/trfuq7zhrnknwh8rtdhb.png');
+INSERT INTO `reaction` VALUES (1,'Thích','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/like_ixhhkc.png'),(2,'Yêu thích','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/love_dsmotv.png'),(3,'Haha','https://res.cloudinary.com/dzbcst18v/image/upload/v1693275265/haha_gwkcpd.png'),(4,'Phẫn nộ','https://res.cloudinary.com/dzbcst18v/image/upload/v1693277593/s7lshrdedldft58ytcb7.png'),(5,'Thương thương','https://res.cloudinary.com/dzbcst18v/image/upload/v1693284144/trfuq7zhrnknwh8rtdhb.png');
 /*!40000 ALTER TABLE `reaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,10 +144,10 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,22 +169,22 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `email` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `active` bit(1) DEFAULT b'1',
-  `role_id` int DEFAULT NULL,
+  `first_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active` bit(1) NOT NULL DEFAULT b'1',
+  `role_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `user_ibfk_1` (`role_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +193,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Tuyen','Dang','dptuyen1@gmail.com','admin','$2a$12$dbn2bJV2qc.pI210vZJhPOl.lkkbiYydT20TIxV3gKRqw3OT1e1F2','https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png',NULL,'2023-08-28 23:36:20',_binary '',1),(121,'tuyen','dang','dptuyen1@gmail.com','tuyendang','$2a$10$CAJLQgylmKqEOzw.rWHxQ.LJIUHo/a04fq6P99pMZVaTDSQrZW0B.','https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png',NULL,'2023-08-26 00:02:45',_binary '',2),(122,'tuyen','dang','dptuyen1@gmail.com','admin123','$2a$10$lFU8EmjfgkrcTev48I/nx.LM1fExvkY1P0BGSVtPwRjcaGTP81gcO','https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png',NULL,'2023-08-26 14:36:43',_binary '',2),(123,'test','test','dptuyen1@gmail.com','dangkytaikhoangiangvien','$2a$10$H.rhgO6f1ubYiv0HSGdMxeZkP0z44F5Tl1SuBuLmSesotJPm25mbi','https://res.cloudinary.com/dzbcst18v/image/upload/v1692982712/driving-license_rwebmf.png',NULL,'2023-08-29 08:59:30',_binary '',2);
+INSERT INTO `user` VALUES (1,'Tuyen','Dang','dptuyen1@gmail.com','admin','$2a$12$/HeWHzf4i4gr.aKQ1pCAAu6Ir8nJkl8mXDjxCqaZ4DFzQxljjXfTy','https://res.cloudinary.com/dzbcst18v/image/upload/v1693627786/292533851_765427727971622_3633989728686397754_n_qgw8wg.jpg',NULL,'2023-09-12 22:42:25',_binary '',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -210,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-29 23:01:56
+-- Dump completed on 2023-09-12 22:43:56

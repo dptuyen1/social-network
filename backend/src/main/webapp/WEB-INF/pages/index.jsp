@@ -76,8 +76,8 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nội dung</th>
                     <th scope="col">Ngày tạo</th>
+                    <th scope="col">Nội dung</th>
                     <th scope="col">Người đăng</th>
                     <th scope="col">Tổng số bình luận</th>
                     <th scope="col">Tổng số biểu cảm</th>
@@ -87,8 +87,8 @@
                 <c:forEach items="${posts}" var="post">
                     <tr>
                         <th scope="row">${post[0].id}</th>
-                        <td>${post[0].content}</td>
                         <td><input value="${post[0].createdDate}" class="form-control text-center" type="datetime-local" readonly="true"/></td>
+                        <td>${post[0].content}</td>
                         <td>${post[0].userId.firstName} ${post[0].userId.lastName}</td>
                         <td>${post[1]}</td>
                         <td>${post[2]}</td>
